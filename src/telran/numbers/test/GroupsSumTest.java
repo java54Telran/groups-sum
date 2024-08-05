@@ -2,11 +2,14 @@ package telran.numbers.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Random;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
 import telran.numbers.*;
 class GroupsSumTest {
-private static final int N_GROUPS = 1000;
-private static final int GROUP_LENGTH = 1000;
+private static final int N_GROUPS = 1000000;
+private static final int GROUP_LENGTH = 100;
 int[][] groups = {
 		{1,2},
 		{3,4},
@@ -19,9 +22,9 @@ int[][] largeGroups = getLargeGroups(N_GROUPS, GROUP_LENGTH);
 		assertEquals(21, gs.getSum());
 	}
 	private int[][] getLargeGroups(int nGroups, int groupLength) {
-		// TODO creating random two dimensional array 
-		// using method generate of Stream
-		return null;
+		
+		return Stream.generate(() -> new Random().ints(groupLength).toArray())
+				.limit(nGroups).toArray(int[][]::new);
 	}
 	@Test
 	void goupsSumThreadPoolTest() {
